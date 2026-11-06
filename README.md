@@ -6,9 +6,31 @@ An [Agent Skill](https://agentskills.io) that lets AI agents buy live crypto and
 - Website: https://scraplingdata.xyz
 - OpenAPI: https://scraplingdata.xyz/openapi.json
 - MCP: https://scraplingdata.xyz/mcp
+- Python SDK: https://pypi.org/project/scrapling-data/
 
 ## Install
 Copy `skills/scrapling-data/` into your agent's skills folder (e.g. `~/.claude/skills/`).
+
+## Python
+
+Free thin SDK on PyPI — local address tools + free teasers + x402 client. No scrapers or secrets inside.
+
+```bash
+pip install scrapling-data
+```
+
+```python
+from scrapling_data import ScraplingData, inspect_address, to_checksum_address
+
+print(inspect_address("0x28c6c06298d514db089934071355e5743bf21d60"))
+print(to_checksum_address("0x28c6c06298d514db089934071355e5743bf21d60"))
+
+with ScraplingData() as sd:
+    print(sd.free_crypto_top10())
+    print(sd.free_wallet_label("0x28C6c06298d514Db089934071355E5743bf21d60"))
+```
+
+CLI: `scrapling-data check <address>` · catalog from **$0.0009**. Docs: https://pypi.org/project/scrapling-data/
 
 License: MIT
 

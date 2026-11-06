@@ -1,6 +1,6 @@
 ---
 name: scrapling-data
-description: Buy live crypto and on-chain data per call over x402 (USDC) from the Scrapling Data Store at scraplingdata.xyz. Use when an agent needs a token scam/honeypot check, a go/caution/avoid token verdict, whale exchange netflow or large whale orders, who a wallet is (exchange/whale/trader/fresh), Solana token holder concentration, coin prices, DeFi yields/TVL, Polymarket odds, price-move alerts, ad cost benchmarks, or any web page as clean Markdown. No account or API key; calls cost $0.001-$0.02 and are not charged on failure.
+description: Buy live crypto and on-chain data per call over x402 (USDC) from the Scrapling Data Store at scraplingdata.xyz. Use when an agent needs a token scam/honeypot check, a go/caution/avoid token verdict, whale exchange netflow or large whale orders, who a wallet is (exchange/whale/trader/fresh), Solana token holder concentration, coin prices, DeFi yields/TVL, Polymarket odds, price-move alerts, ad cost benchmarks, or any web page as clean Markdown. No account or API key; calls from $0.0009 and are not charged on failure.
 license: MIT
 metadata:
   version: "1.0.0"
@@ -13,6 +13,13 @@ metadata:
 
 Base URL: `https://scraplingdata.xyz`. Every endpoint is a plain HTTPS GET returning JSON.
 Paid calls use the x402 protocol: no signup, pay per call in USDC.
+
+## Python SDK
+Free thin client on PyPI (no scrapers/secrets):
+```bash
+pip install scrapling-data
+```
+Docs: https://pypi.org/project/scrapling-data/
 
 ## Start free
 Try these first (no payment, 30 calls/min per IP):
@@ -29,18 +36,21 @@ Try these first (no payment, 30 calls/min per IP):
 | Full due-diligence report on a token or wallet before buying/listing/paying: verdict, red/green flags, DEX liquidity, holder concentration, whale netflow, lending, allow/caution/avoid + confidence, proof links (base, ethereum, solana) | `/v1/dd/report?chain=base&address=0x...` | $1.00 |
 | Quick due-diligence: allow/caution/avoid, top 3 flags, liquidity, holder concentration | `/v1/dd/quick?chain=base&address=0x...` | $0.25 |
 | Should I trust this outside agent, wallet or token? Trust Bundle: allow/caution/block + 0-100 trust score + reasons (counterparty + wallet profile + token verdict in one call; base, ethereum, solana) | `/v1/trust/agent?chain=base&address=0x...` | $0.04 |
-| Is it safe to pay or trade with this wallet or token? safe/caution/block + 0-100 score + reasons (ethereum, base, solana) | `/v1/check/counterparty?chain=ethereum&address=0x...` | $0.02 |
+| Is it safe to pay or trade with this wallet or token? safe/caution/block + 0-100 score + reasons (ethereum, base, solana) | `/v1/check/counterparty?chain=ethereum&address=0x...` | $0.004 |
+| Live Base USDC lookalike / address-poisoning flags | `/v1/lookup/address-poisoning?address=0x...` | $0.0009 |
+| Security risk-check MALICIOUS…UNKNOWN (3 free/IP/UTC-day) | `/v1/intel/risk-check?address=0x...` | $0.0045 |
+| HIP-3 / tradeXYZ equity stock perps + large trades | `/v1/perps/stocks` | $0.003 |
 | Should I trade this token? go/caution/avoid + liquidity, holders, taxes, contract flags (base, ethereum, bsc, arbitrum, polygon, optimism, avalanche, solana) | `/v1/token/verdict?chain=base&address=0x...` | $0.005 |
 | Is a Base token a scam/honeypot? 0-100 risk score | `/v1/lookup/token-risk/{address}` | $0.005 |
 | Whale transfers into/out of exchanges (inflow bearish, outflow bullish) + Hyperliquid whale perp flow | `/v1/signals/whale-netflow?chain=all&window=24h` | $0.02 |
 | Large Hyperliquid whale orders, net buy/sell per coin | `/v1/whales/moves?min_usd=100000&window=1h` | $0.005 |
 | Whale flow for one coin + mark price, funding, OI | `/v1/whales/token?chain=hyperliquid&coin=SOL` | $0.005 |
 | Who is this wallet? label + 0-100 activity score, balances (ethereum, base, solana) | `/v1/wallet/profile?chain=ethereum&address=0x...` | $0.005 |
-| Holder concentration of a Solana token (top-10 share, exchange-held, low/medium/high) | `/v1/token/holders?chain=solana&address={mint}` | $0.005 |
+| Holder concentration of a Solana token (top-10 share, exchange-held, low/medium/high) | `/v1/token/holders?chain=solana&address={mint}` | $0.001 |
 | Coin price, market cap, 24h change | `/v1/lookup/coin/bitcoin` | $0.001 |
 | Coins (and DeFi TVL) that moved > X% | `/v1/alerts/price-moves?threshold=5&window=24h` | $0.002 |
-| Whole market in one call | `/v1/bundle/market-pulse` | $0.005 |
-| DeFi bundle: TVL, movers, stablecoins, best yields | `/v1/bundle/defi-intel` | $0.003 |
+| Whole market in one call | `/v1/bundle/market-pulse` | $0.001 |
+| DeFi bundle: TVL, movers, stablecoins, best yields | `/v1/bundle/defi-intel` | $0.001 |
 | Protocol TVL + 1d/7d trend | `/v1/lookup/protocol/aave` | $0.001 |
 | Best yields for a chain/token | `/v1/lookup/yields?chain=Base&token=USDC` | $0.002 |
 | Polymarket odds for an event | `/v1/lookup/polymarket?q=bitcoin` | $0.005 |
